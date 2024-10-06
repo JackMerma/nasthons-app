@@ -2,9 +2,11 @@ package com.example.chakrita_app.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.chakrita_app.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -31,4 +33,8 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
     */
+)
+
+val type_bagel = FontFamily(
+    Font(R.font.bagel_fat_one)
 )
