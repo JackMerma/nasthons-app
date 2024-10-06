@@ -29,11 +29,13 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import androidx.activity.result.launch
-
+import com.example.chakrita_app.`interface`.uploadImageToApi
+import java.io.File
+import java.io.FileOutputStream
 private const val title = "Look Up an Object"
-
 @Composable
 fun OptionsScreen() {
     var imageBitmap by remember { mutableStateOf<Bitmap?>(null) }
@@ -54,7 +56,6 @@ fun OptionsScreen() {
             cameraLauncher.launch()  // Abrir la cámara si el permiso fue concedido
         } else {
             // Manejar el caso donde el permiso fue denegado
-            // Aquí podrías mostrar un mensaje de error o advertencia
         }
     }
 
@@ -81,7 +82,6 @@ fun OptionsScreen() {
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
-
             }
         },
         content = { paddingValues ->
@@ -116,14 +116,19 @@ fun OptionsScreen() {
                 )
 
                 // Mostrar la imagen capturada (si existe)
-                imageBitmap?.let {
+                imageBitmap?.let { bitmap ->
                     Image(
-                        bitmap = it.asImageBitmap(),
+                        bitmap = bitmap.asImageBitmap(),
                         contentDescription = "Imagen Capturada",
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(300.dp)
                     )
+
+                    // Llamada a la API usando LaunchedEffect
+                    LaunchedEffect(bitmap) {
+                        uploadImageToApi(bitmap, context)
+                    }
                 }
 
                 Image(
@@ -145,8 +150,15 @@ fun OptionsScreen() {
     )
 }
 
-@Preview
-@Composable
-fun OptionsPreview() {
-    OptionsScreen()
+fun bitmapToFile(bitmap: Bitmap, context: Context): File {
+    // Crear un archivo temporal
+    val file = File(context.cacheDir, "temp_image.jpg")
+    val outputStream = FileOutputStream(file)
+
+    // Comprimir el bitmap y guardarlo en el archivo como JPEG
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+    outputStream.flush()
+    outputStream.close()
+
+    return file
 }
