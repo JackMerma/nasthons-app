@@ -30,6 +30,11 @@ We aim to:
 - Provide localized climate analysis to further improve prediction accuracy.
 - Integrate the app with IoT devices and drones for continuous data collection and monitoring.
 
+## Repositories
+
+- **Main Application**: [https://github.com/JackMerma/nasthons-app.git](https://github.com/JackMerma/nasthons-app.git)
+- **Chatbot (LangChain solution deployed in the cloud)**: [https://github.com/JackMerma/nasthons-ai.git](https://github.com/JackMerma/nasthons-ai.git)
+
 ## Installation
 
 1. Clone the repository:
@@ -55,4 +60,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 **Chakrita** is more than just an app—it's a reliable ally in the fight against climate challenges, empowering farmers and fostering sustainability in agriculture.
-
